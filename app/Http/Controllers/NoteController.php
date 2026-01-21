@@ -45,8 +45,8 @@ class NoteController extends Controller
     public function update(Request $request, Note $note): RedirectResponse
     {
         $updated = $request->validate([
-            'title' => 'string|max:255|required',
-            'body' => 'string|required',
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
             'date' => 'nullable|date|date_format:Y-m-d|after_or_equal:today'
         ]);
 
