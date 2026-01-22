@@ -7,14 +7,12 @@ use App\Http\Requests\Note\UpdateRequest;
 use App\Models\Note;
 use Illuminate\Http\RedirectResponse;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
     public function __invoke(UpdateRequest $request, Note $note): RedirectResponse
     {
         $updated = $request->validated();
-
-        $note->updateOrFail($updated);
-
+        $this->service->update($note, $updated);
         return redirect()->route('notes.show', $note->id);
     }
 

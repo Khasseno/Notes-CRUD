@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Note;
 use Illuminate\View\View;
 
-class ShowController extends Controller
+class ShowController extends BaseController
 {
     public function __invoke(Note $note): View
     {

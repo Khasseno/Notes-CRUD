@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Note;
 use Illuminate\View\View;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function __invoke(): View
     {

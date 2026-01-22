@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Note;
 use Illuminate\Http\RedirectResponse;
 
-class DestroyController extends Controller
+class DestroyController extends BaseController
 {
     public function __invoke(Note $note): RedirectResponse
     {
-        $note->delete();
+        $this->service->destroy($note);
         return redirect()->route('notes.index');
     }
 

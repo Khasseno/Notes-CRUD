@@ -7,13 +7,12 @@ use App\Http\Requests\Note\StoreRequest;
 use App\Models\Note;
 use Illuminate\Http\RedirectResponse;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
     public function __invoke(StoreRequest $request): RedirectResponse
     {
-        $note = $request->validated();
-
-        Note::create($note);
+        $data = $request->validated();
+        $this->service->store($data);
         return redirect()->route('notes.index');
     }
 
