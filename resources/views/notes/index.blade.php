@@ -31,6 +31,6 @@
     @endforeach
 
     <a href="{{ route('notes.create') }}">
-        <button type="button" class="btn btn-success">Добавить новую заметку</button>
+        <button type="button" class="mb-3 btn btn-success">Добавить новую заметку</button>
     </a>
 @endsection
