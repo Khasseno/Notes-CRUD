@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('content')
     @if (count($notes) == 0)
-        <div class="mt-3 mb-3 card">
+        <div class="mt-3 card">
             <div class="card-body">
                 <h5>
                     Заметок нет
@@ -9,6 +9,10 @@
             </div>
         </div>
     @endif
+
+    <a href="{{ route('notes.create') }}">
+        <button type="button" class="mt-3 btn btn-success">Добавить новую заметку</button>
+    </a>
 
     @foreach($notes as $note)
         <a class="text-decoration-none" href="{{ route('notes.show', $note->id) }}">
@@ -30,7 +34,8 @@
         </a>
     @endforeach
 
-    <a href="{{ route('notes.create') }}">
-        <button type="button" class="mb-3 btn btn-success">Добавить новую заметку</button>
-    </a>
+    <div>
+        {{ $notes->links() }}
+    </div>
+
 @endsection

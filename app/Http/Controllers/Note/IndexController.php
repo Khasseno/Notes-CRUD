@@ -10,7 +10,7 @@ class IndexController extends BaseController
 {
     public function __invoke(): View
     {
-        $notes = Note::all();
+        $notes = Note::paginate(5);
         return view('notes.index', compact(['notes']));
     }
 
