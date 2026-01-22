@@ -35,7 +35,7 @@
     @endforeach
 
     <div>
-        {{ $notes->links() }}
+        {{ $notes->withQueryString()->links() }}
     </div>
 
 @endsection
