@@ -18,11 +18,11 @@
                     <!-- Buttons, labels, and many other things can be placed here! -->
                     <!-- Here is a label for example -->
                     <a class="text-decoration-none" href="{{ route('admin.notes.edit', $note->id) }}">
-                        <button type="button" class="btn btn-primary">Редактировать сообщение</button>
+                        <button type="button" class="btn btn-primary">Редактировать</button>
                     </a>
                     <button onclick="event.preventDefault();
                                                      document.getElementById('delete-form').submit();"
-                            class="btn btn-danger">Удалить заметку
+                            class="btn btn-danger">Удалить
                     </button>
                     <form id="delete-form" class="mt-3" action="{{ route('admin.notes.destroy', $note->id) }}" method="post">
                         @csrf

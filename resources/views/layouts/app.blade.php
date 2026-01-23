@@ -66,15 +66,16 @@
                                                      document.getElementById('logout-form').submit();">
                                     Выйти из аккаунта
                                 </a>
-                                <a class="dropdown-item" href="{{ route('admin.notes') }}"> Панель администратора </a>
-
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
+                                @if (Auth::user()->is_admin)
+                                    <a class="dropdown-item" href="{{ route('admin.notes') }}"> Панель
+                                        администратора </a>
+
+                                @endif
                             </div>
                         </li>
-                        @if (Auth::user()->is_admin)
-                        @endif
                     @endguest
                 </ul>
             </div>
