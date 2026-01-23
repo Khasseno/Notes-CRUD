@@ -19,6 +19,7 @@ class NoteFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'body' => $this->faker->paragraph(),
+            'user_id' => $this->faker->numberBetween(1, 3),
             'date' => $this->faker->dateTimeBetween('now', '+1 years'),
         ];
     }

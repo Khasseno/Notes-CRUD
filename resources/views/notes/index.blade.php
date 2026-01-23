@@ -1,5 +1,6 @@
-@extends('layout.main')
+@extends('layouts.app')
 @section('content')
+
     @if (count($notes) == 0)
         <div class="mt-3 card">
             <div class="card-body">
