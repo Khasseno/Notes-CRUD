@@ -6,6 +6,17 @@ use App\Http\Controllers\HomeController;
 Route::get("/", [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/', 'IndexController')->name('admin.index');
+
+    Route::group(['prefix' => 'notes'], function () {
+        Route::get('/', 'NotesController')->name('admin.notes');
+        Route::get('/notes/edit/{note}', 'EditController')->name('admin.notes.edit');
+        Route::patch('/notes/update/{note}', 'UpdateController')->name('admin.notes.update');
+        Route::delete('/notes/destroy/{note}', 'DestroyController')->name('admin.notes.destroy');
+    });
+});
+
 Route::group(['namespace' => 'App\Http\Controllers\Note', 'prefix' => 'notes', 'middleware' => 'auth'], function () {
     Route::get('/', 'IndexController')->name('notes.index');
     Route::get('/create', 'CreateController')->name('notes.create');
