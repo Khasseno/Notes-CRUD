@@ -69,11 +69,11 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                                @if (Auth::user()->is_admin)
-                                    <a class="dropdown-item" href="{{ route('admin.notes') }}"> Панель
-                                        администратора </a>
-
-                                @endif
+                                @can('view', auth()->user())
+                                    <a class="dropdown-item" href="{{ route('admin.index') }}">
+                                        Панель администратора
+                                    </a>
+                                @endcan
                             </div>
                         </li>
                     @endguest
