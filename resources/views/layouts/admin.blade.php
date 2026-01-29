@@ -70,7 +70,7 @@
     />
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
 <!--end::Head-->
 

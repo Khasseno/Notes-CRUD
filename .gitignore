@@ -23,3 +23,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+npm-debug.log
+yarn-error.log
