@@ -20,35 +20,14 @@ Password:   admin
 никнейме пользователя зайти в админ панель  
 
 ## Для запуска c Docker-Compose используйте
-1. Собрать docker-compose
+1. Соберите образ
 ```bash
-docker compose up -d --build
-```
-2. Скопировать переменные окружения из шаблона
-```bash
-docker compose exec -T app cp .env.example .env
+docker compose build
 ```
 
-3. Установить зависимости Laravel
+2. Запустите проект
 ```bash
-docker compose exec -T app composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-req=ext-http
-```
-4. Установить и скомпилировать стили Bootstrap
-```bash
-docker compose exec -T app npm install
-```
-```bash
-docker compose exec -T app npm run build
-```
-
-5. Сгенерировать ключ приложения
-```bash
-docker compose exec -T app php artisan key:generate
-```
-
-6. Провести миграцию в БД
-```bash
-docker compose exec -T app php artisan migrate --seed
+docker compose up
 ```
 
 Готово. Проект будет запущен на localhost по порту 8000:

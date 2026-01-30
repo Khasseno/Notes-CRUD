@@ -55,7 +55,7 @@ chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 # Migration
 echo "Database Migration"
-php artisan migrate --force
+php artisan migrate --seed --force
 
 echo "Laravel Project is up: http://localhost:8000"
 
