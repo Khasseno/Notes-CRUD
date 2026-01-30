@@ -15,6 +15,11 @@ services:
       - "5432:5432"
     networks:
       - notes_app
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   # Main Project on Laravel
   app:
@@ -28,6 +33,8 @@ services:
       - "5173:5173" # Port for Vite (npm / bootstrap)
     volumes:
       - ./:/var/www
+      - vendor_volume:/var/www/vendor
+      - node_modules_volume:/var/www/node_modules
     environment:
       DB_CONNECTION: pgsql
       DB_HOST: db
@@ -36,7 +43,8 @@ services:
       DB_USERNAME: ${DB_USERNAME:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-secret}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - notes_app
 
@@ -61,3 +69,5 @@ networks:
 
 volumes:
   postgres_data:
+  vendor_volume:
+  node_modules_volume:
