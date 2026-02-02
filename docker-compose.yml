@@ -21,6 +21,25 @@ services:
       timeout: 5s
       retries: 5
 
+  # Redis
+  redis:
+    image: redis:8.2-alpine
+    container_name: laravel_redis
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./docker/redis:/usr/local/etc/redis
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - notes_app
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
   # Main Project on Laravel
   app:
     build:
@@ -36,14 +55,25 @@ services:
       - vendor_volume:/var/www/vendor
       - node_modules_volume:/var/www/node_modules
     environment:
+      # PostgreSQL variables
       DB_CONNECTION: pgsql
       DB_HOST: db
       DB_PORT: 5432
       DB_DATABASE: ${DB_DATABASE:-notes}
       DB_USERNAME: ${DB_USERNAME:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-secret}
+
+      # Redis variables
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: null
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_CONNECTION: redis
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     networks:
       - notes_app
@@ -69,5 +99,6 @@ networks:
 
 volumes:
   postgres_data:
+  redis_data:
   vendor_volume:
   node_modules_volume:
