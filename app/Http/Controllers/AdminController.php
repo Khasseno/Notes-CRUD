@@ -8,17 +8,11 @@ use App\Models\Note;
 
 use App\Services\Admin\Service;
 
+use App\Services\AdminService;
 use Illuminate\Http\RedirectResponse;
 
 class AdminController extends Controller
 {
-    public $service;
-
-    public function __construct()
-    {
-        $this->service = new Service();
-    }
-
     public function index()
     {
         return view('admin.index');
@@ -35,16 +29,16 @@ class AdminController extends Controller
         return view('admin.edit', compact('note'));
     }
 
-    public function update(UpdateRequest $request, Note $note): RedirectResponse
+    public function update(AdminService $service, UpdateRequest $request, Note $note): RedirectResponse
     {
         $updated = $request->validated();
-        $note->update($updated);
+        $service->update($note, $updated);
         return redirect()->route('admin.notes');
     }
 
-    public function destroy(Note $note): RedirectResponse
+    public function destroy(AdminService $service, Note $note): RedirectResponse
     {
-        $this->service->destroy($note);
+        $service->destroy($note);
         return redirect()->route('admin.notes');
     }
 }

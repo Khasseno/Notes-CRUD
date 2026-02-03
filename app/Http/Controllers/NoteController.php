@@ -9,7 +9,7 @@ use App\Http\Requests\Note\UpdateRequest;
 
 use App\Models\Note;
 
-use App\Services\Note\Service;
+use App\Services\NoteService;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -18,13 +18,7 @@ use Illuminate\View\View;
 
 class NoteController extends Controller
 {
-    public $service;
-
-    public function __construct() {
-        $this->service = new Service();
-    }
-
-    public function index(FilterRequest $request): View
+    public function index(NoteService $service, FilterRequest $request): View
     {
         $data = $request->validated();
 
@@ -42,10 +36,10 @@ class NoteController extends Controller
         return view('notes.create');
     }
 
-    public function store(StoreRequest $request): RedirectResponse
+    public function store(NoteService $service, StoreRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $this->service->store($data);
+        $service->store($data);
         return redirect()->route('notes.index');
     }
 
@@ -71,16 +65,16 @@ class NoteController extends Controller
         return view('notes.edit', compact('note'));
     }
 
-    public function update(UpdateRequest $request, Note $note): RedirectResponse
+    public function update(NoteService $service, UpdateRequest $request, Note $note): RedirectResponse
     {
         $updated = $request->validated();
-        $this->service->update($note, $updated);
+        $service->update($note, $updated);
         return redirect()->route('notes.show', $note->id);
     }
 
-    public function destroy(Note $note): RedirectResponse
+    public function destroy(NoteService $service, Note $note): RedirectResponse
     {
-        $this->service->destroy($note);
+        $service->destroy($note);
         return redirect()->route('notes.index');
     }
 }
